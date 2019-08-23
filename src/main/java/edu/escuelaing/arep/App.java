@@ -6,6 +6,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
+import spark.Request;
+import spark.Response;
+
 /**
  * Esta aplicacion permite calcular la media y desviacion estandar de los datos ingresados en un archivo de texto
  *
@@ -15,19 +18,28 @@ public class App {
     {
 		setPort(4567);
         port(getPort());
-		LinkedList a = new LinkedList();
-		LinkedList b = new LinkedList();
-    	BufferedReader br = new BufferedReader(new FileReader("test.txt"));
-        String str = null;
-        while((str = br.readLine()) != null) {
-        	double val = Double.parseDouble(str);
-			a.addAtHead(val);
-			b.addAtTail(val);
-		}
-		double media = calcMedia(a);
-		double desviacion = calcDesv(b,media);
-		System.out.println("La media es " + media + " la desviación es " + desviacion);
+        get("/entradas", (req, res) -> lectura(req, res));
+        get("/salidas", (req, res) -> impresion(req, res));
 	}
+	
+	private static String lectura(Request req, Response res) {
+        String pagina = "<!DOCTYPE html><html><body><h1>Media y Desviacion estandar de una lista de reales</h1><h2>introduzca cada valor separado por un espacio</h2><form action='results'><input type='text' name='datos' value='' required><input type='submit' value='Submit'></form></body></html>";
+        return pagina;
+    }
+	
+	private static String impresion(Request req, Response res) {
+        String[] datos = req.queryParams("datos").split(" ");
+        LinkedList a = new LinkedList();
+        LinkedList b = new LinkedList();
+        for(int i = 0; i < datos.length; i++) {
+        	a.addAtHead(Double.parseDouble(datos[i]));
+        	b.addAtHead(Double.parseDouble(datos[i]));
+        }
+        double media = calcMedia(a);
+        double desviacion = calcDesv(b, media);
+        String pagina = "<!DOCTYPE html><html><body><h1>La media es: "+ media +"</h2><br></br><body><h1>La desviacioin estandar es: " + desviacion + "</h2></html></body>";
+        return pagina;
+    }
 	
 	/**
 	 * este metodo calcula la media de una lista de numeros
