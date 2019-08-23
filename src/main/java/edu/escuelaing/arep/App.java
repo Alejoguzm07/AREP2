@@ -13,7 +13,8 @@ import java.io.IOException;
 public class App {
 	public static void main(String[] args) throws NumberFormatException, IOException
     {
-		get("/hello", (req, res) -> "Hello Heroku"); 
+		setPort(4567);
+        port(getPort());
 		LinkedList a = new LinkedList();
 		LinkedList b = new LinkedList();
     	BufferedReader br = new BufferedReader(new FileReader("test.txt"));
