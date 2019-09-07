@@ -23,7 +23,14 @@ public class App {
 	}
 	
 	private static String lectura(Request req, Response res) {
-        String pagina = "<!DOCTYPE html><html><body><h1>Media y Desviacion estandar de una lista de reales</h1><h2>introduzca cada valor separado por un espacio</h2><form action='results'><input type='text' name='datos' value='' required><input type='submit' value='Submit'></form></body></html>";
+        String pagina = "<!DOCTYPE html>"
+        		+ "<html><body><h1>Media y Desviacion estandar de una lista de reales</h1>"
+        		+ "<h2>introduzca cada valor separado por un espacio</h2>"
+        		+ "<form action='results'>"
+        		+ "<input type='text' name='datos' value='' required>"
+        		+ "<input type='submit' value='Submit'>"
+        		+ "</form>"
+        		+ "</body></html>";
         return pagina;
     }
 	
