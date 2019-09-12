@@ -18,8 +18,8 @@ public class App {
     {
 		setPort(4567);
         port(getPort());
-        get("/entradas", (req, res) -> lectura(req, res));
-        get("/salidas", (req, res) -> impresion(req, res));
+        get("/inputdata", (req, res) -> lectura(req, res));
+        get("/results", (req, res) -> impresion(req, res));
 	}
 	
 	private static String lectura(Request req, Response res) {
@@ -27,7 +27,7 @@ public class App {
         		+ "<html><body><h1>Media y Desviacion estandar de una lista de reales</h1>"
         		+ "<h2>introduzca cada valor separado por un espacio</h2>"
         		+ "<form action='results'>"
-        		+ "<input type='text' name='datos' value='' required>"
+        		+ "<input type='text' name='datos'  required>"
         		+ "<input type='submit' value='Submit'>"
         		+ "</form>"
         		+ "</body></html>";
@@ -44,7 +44,9 @@ public class App {
         }
         double media = calcMedia(a);
         double desviacion = calcDesv(b, media);
-        String pagina = "<!DOCTYPE html><html><body><h1>La media es: "+ media +"</h2><br></br><body><h1>La desviacioin estandar es: " + desviacion + "</h2></html></body>";
+        String pagina = "<!DOCTYPE html><html><body><form actions ='/results'><h1>La media es: "
+        + media + "</h1><br></br><body>"
+      + "<h1>La desviacioin estandar es: " + desviacion + "</h1></form></body></html>";
         return pagina;
     }
 	
